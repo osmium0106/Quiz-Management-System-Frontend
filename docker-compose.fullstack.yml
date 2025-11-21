@@ -1,0 +1,71 @@
+# Full-stack Docker Compose with backend integration
+version: '3.8'
+
+services:
+  # Quiz Management System Frontend
+  quiz-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: quiz-frontend-fullstack
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://quiz-backend:8000/api/v1
+      - VITE_BACKEND_URL=http://quiz-backend:8000
+    networks:
+      - quiz-network
+    depends_on:
+      - quiz-backend
+    restart: unless-stopped
+
+  # Quiz Management System Backend (placeholder)
+  quiz-backend:
+    image: quiz-backend:latest  # Replace with your backend image
+    container_name: quiz-backend-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DATABASE_URL=postgresql://quiz_user:quiz_password@quiz-db:5432/quiz_db
+    networks:
+      - quiz-network
+    depends_on:
+      - quiz-db
+    restart: unless-stopped
+
+  # PostgreSQL Database (placeholder)
+  quiz-db:
+    image: postgres:15-alpine
+    container_name: quiz-postgres
+    environment:
+      - POSTGRES_DB=quiz_db
+      - POSTGRES_USER=quiz_user
+      - POSTGRES_PASSWORD=quiz_password
+    volumes:
+      - quiz_db_data:/var/lib/postgresql/data
+    networks:
+      - quiz-network
+    restart: unless-stopped
+
+  # Redis for caching (optional)
+  quiz-redis:
+    image: redis:7-alpine
+    container_name: quiz-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - quiz-network
+    restart: unless-stopped
+
+volumes:
+  quiz_db_data:
+
+networks:
+  quiz-network:
+    driver: bridge

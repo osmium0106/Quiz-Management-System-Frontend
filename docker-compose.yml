@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Quiz Management System Frontend
+  quiz-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: quiz-frontend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:8000/api/v1
+      - VITE_BACKEND_URL=http://localhost:8000
+    networks:
+      - quiz-network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    command: npm run dev -- --host 0.0.0.0
+
+  # Production build
+  quiz-frontend-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: quiz-frontend-prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - quiz-network
+    restart: unless-stopped
+    profiles:
+      - production
+
+networks:
+  quiz-network:
+    driver: bridge
+    external: true
