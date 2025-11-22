@@ -245,7 +245,7 @@ const EditQuiz: React.FC = () => {
 
     setQuestionLoading(true);
     try {
-      const newQuestion = await adminQuizService.createQuizQuestion(quiz.id, questionForm);
+      const newQuestion = await adminQuizService.createQuizQuestion(quiz.id, questionForm as any);
       setQuestions(prev => [...prev, newQuestion]);
       setShowAddQuestion(false);
       

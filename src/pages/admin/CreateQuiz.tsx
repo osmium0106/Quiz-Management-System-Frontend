@@ -61,7 +61,7 @@ const CreateQuiz: React.FC = () => {
 
     setLoading(true);
     try {
-      const newQuiz = await adminQuizService.createQuiz(formData);
+      const newQuiz = await adminQuizService.createQuiz(formData as any);
       toast.success('Quiz created successfully! Now add questions to your quiz.');
       navigate(`/admin/quizzes/${newQuiz.id}?new=true`);
     } catch (error: any) {

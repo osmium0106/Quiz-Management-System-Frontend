@@ -152,7 +152,7 @@ const ResponseList: React.FC = () => {
               <div
                 key={response.id}
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden cursor-pointer"
-                onClick={() => navigate(`/admin/responses/${response.id}`)}
+                onClick={() => navigate(`/admin/responses/${response.id.toString()}`)}
               >
                 {/* Card Header */}
                 <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
@@ -187,7 +187,7 @@ const ResponseList: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-gray-600">Score:</span>
-                      <span className={`text-lg font-bold ${getScoreColor(response.percentage)}`}>
+                      <span className={`text-lg font-bold ${getScoreColor(response.percentage.toString())}`}>
                         {response.percentage}%
                       </span>
                     </div>

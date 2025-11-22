@@ -42,7 +42,7 @@ export const authService = {
   getProfile: async (): Promise<{ data: User }> => {
     const response = await apiClient.get<ApiResponse<User>>('/auth/profile/');
     // Handle both wrapped and direct responses
-    const userData = (response.data as any).data || response.data as User;
+    const userData = (response.data as any).data || (response.data as unknown as User);
     return { data: userData };
   },
 
@@ -50,7 +50,7 @@ export const authService = {
   updateProfile: async (data: Partial<User>): Promise<{ data: User }> => {
     const response = await apiClient.put<ApiResponse<User>>('/auth/profile/', data);
     // Handle both wrapped and direct responses
-    const userData = (response.data as any).data || response.data as User;
+    const userData = (response.data as any).data || (response.data as unknown as User);
     return { data: userData };
   },
 

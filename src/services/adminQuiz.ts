@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { Quiz, Question, ApiResponse, PaginatedResponse } from '../types';
+import { Quiz, Question, PaginatedResponse } from '../types';
 
 export interface AdminQuizListParams {
   page?: number;

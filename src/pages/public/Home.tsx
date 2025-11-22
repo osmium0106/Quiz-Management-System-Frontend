@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { publicService } from '../../services/public';
 
 const Home: React.FC = () => {
   const [quizzes, setQuizzes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuizzes = async () => {

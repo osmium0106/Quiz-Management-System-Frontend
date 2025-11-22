@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { publicQuizService, QuizResult, Answer } from '../../services/publicQuiz';
+import { publicQuizService, QuizResult } from '../../services/publicQuiz';
 
 const QuizResults: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
